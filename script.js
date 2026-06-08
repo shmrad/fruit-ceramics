@@ -155,7 +155,7 @@ $('#orderForm').addEventListener('submit', e => {
   const msg = $('#formMessage').value.trim();
   if (!name || !email) return;
 
-  const subject = encodeURIComponent('Fruit Ceramics order inquiry');
+  const subject = encodeURIComponent('amangosart order inquiry');
   const body = encodeURIComponent(
     `Hi! I'd like to place an order:\n\nName: ${name}\nEmail: ${email}\n\n${msg}\n\n` +
     `---\nCart: ${cart.map(i => i.name).join(', ')}`

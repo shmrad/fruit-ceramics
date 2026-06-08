@@ -1,9 +1,9 @@
-# 🍊 Fruit Ceramics — Handmade Trinket Dishes
+# amangosart — Handmade Ceramic Trinket Dishes
 
-Hand-sculpted ceramic trinket dishes shaped like fruit.  
+Hand-sculpted ceramic trinket dishes shaped like fruit.
 Each piece is uniquely sculpted and painted — water resistant, not waterproof.
 
-👉 **[View the live site](https://shmrad.github.io/fruit-ceramics/)**
+**[View the live site](https://shmrad.github.io/fruit-ceramics/)**
 
 ---
 
@@ -11,12 +11,12 @@ Each piece is uniquely sculpted and painted — water resistant, not waterproof.
 
 | Fruit | Single | Bundle |
 |-------|--------|--------|
-| 🍊 Tangerine | $26 | 2/$50 · 4/$96 · 6/$138 |
-| 🍉 Grapefruit | $26 | 2/$50 · 4/$96 · 6/$138 |
-| 🍋 Lemon | $26 | 2/$50 · 4/$96 · 6/$138 |
-| 🍊 Orange | $26 | 2/$50 · 4/$96 · 6/$138 |
-| 🍋‍🟩 Lime | $26 | 2/$50 · 4/$96 · 6/$138 |
-| 🥝 Kiwi | $26 | 2/$50 · 4/$96 · 6/$138 |
+| Tangerine | $26 | 2/$50, 4/$96, 6/$138 |
+| Grapefruit | $26 | 2/$50, 4/$96, 6/$138 |
+| Lemon | $26 | 2/$50, 4/$96, 6/$138 |
+| Orange | $26 | 2/$50, 4/$96, 6/$138 |
+| Lime | $26 | 2/$50, 4/$96, 6/$138 |
+| Kiwi | $26 | 2/$50, 4/$96, 6/$138 |
 
 Mix and match any fruits in a bundle.
 
@@ -31,9 +31,9 @@ Mix and match any fruits in a bundle.
 
 ## Custom orders
 
-Want a different fruit or specification?  
+Want a different fruit or specification?
 Email: simplifaisoul@gmail.com
 
 ---
 
-Built with HTML, CSS, JavaScript. No frameworks.
+Built with HTML, CSS, JavaScript.
