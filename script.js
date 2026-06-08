@@ -1,194 +1,224 @@
 /* ============================================
-   Fruit Ceramics — Store Script
+   Fruit Ceramics — Store
    ============================================ */
 
 // ─── DATA ───
 const FRUITS = [
-  { id: 'tangerine', name: 'Tangerine', emoji: '🍊', price: 26 },
-  { id: 'grapefruit', name: 'Grapefruit', emoji: '🍉', price: 26 },
-  { id: 'lemon', name: 'Lemon', emoji: '🍋', price: 26 },
-  { id: 'orange', name: 'Orange', emoji: '🍊', price: 26 },
-  { id: 'lime', name: 'Lime', emoji: '🍋‍🟩', price: 26 },
-  { id: 'kiwi', name: 'Kiwi', emoji: '🥝', price: 26 },
+  { id: 'tangerine', name: 'Tangerine', img: 'img_ed49f0fd79a9.jpg' },
+  { id: 'grapefruit', name: 'Grapefruit', img: 'img_2d438f398697.jpg' },
+  { id: 'lemon', name: 'Lemon', img: 'img_ae21c01b0db4.jpg' },
+  { id: 'orange', name: 'Orange', img: 'img_92c0344e546a.jpg' },
+  { id: 'lime', name: 'Lime', img: 'img_1fe4ec6224d1.jpg' },
+  { id: 'kiwi', name: 'Kiwi', img: 'img_d7be2aeb274d.jpg' },
 ];
 
-const BUNDLES = {
-  1: { label: '1 dish', total: 26, save: 0 },
-  2: { label: '2 dishes (Bundle)', total: 50, save: 2 },
-  4: { label: '4 dishes (Bundle)', total: 96, save: 8 },
-  6: { label: '6 dishes (Bundle)', total: 138, save: 18 },
-};
+const HERO_IMAGES = ['img_ed49f0fd79a9.jpg', 'img_92c0344e546a.jpg', 'img_ae21c01b0db4.jpg', 'img_d7be2aeb274d.jpg', 'img_b09aa1c8a4e6.jpg'];
+
+const PRICE = 26;
+const BUNDLE = { 1: 0, 2: 2, 4: 8, 6: 18 };
 
 // ─── STATE ───
 let cart = [];
+const IMG = 'images/';
 
 // ─── DOM REFS ───
 const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 
-const grid = $('#fruitsGrid');
-const cartSidebar = $('#cartSidebar');
-const cartOverlay = $('#cartOverlay');
-const cartItemsEl = $('#cartItems');
-const cartCount = $('#cartCount');
-const cartTotal = $('#cartTotal');
-const cartBtn = $('#cartBtn');
-const cartClose = $('#cartClose');
-const checkoutBtn = $('#checkoutBtn');
-const hamburger = $('#hamburger');
-const navLinks = document.querySelector('.nav-links');
-const orderForm = $('#orderForm');
+// ─── HERO GALLERY ───
+(function initHero() {
+  const g = $('#heroGallery');
+  g.innerHTML = HERO_IMAGES.map((f, i) =>
+    `<img src="${IMG}${f}" alt="Ceramic trinket dish" style="${i > 0 ? 'animation-delay:'+(i*0.15)+'s' : ''}" loading="${i < 3 ? 'eager' : 'lazy'}" />`
+  ).join('');
+})();
 
 // ─── RENDER PRODUCTS ───
-function renderFruits() {
+(function renderProducts() {
+  const grid = $('#productGrid');
   grid.innerHTML = FRUITS.map(f => `
-    <div class="fruit-card" data-id="${f.id}">
-      <span class="in-cart-badge">✓ In Cart</span>
-      <span class="fruit-emoji">${f.emoji}</span>
-      <h4>${f.name}</h4>
-      <span class="fruit-price">$${f.price}</span>
-      <p class="fruit-desc">Hand-sculpted ceramic trinket dish</p>
-      <button class="add-btn" data-id="${f.id}">Add to Cart</button>
+    <div class="product-card" data-id="${f.id}">
+      <img src="${IMG}${f.img}" alt="${f.name} ceramic dish" loading="lazy" />
+      <div class="product-info">
+        <span class="product-name">${f.name}</span>
+        <span class="product-price">$${PRICE}</span>
+      </div>
+      <button class="add-btn" data-id="${f.id}">Add to cart</button>
     </div>
   `).join('');
 
-  // Event delegation
   grid.addEventListener('click', e => {
     const btn = e.target.closest('.add-btn');
-    if (btn) addToCart(btn.dataset.id);
+    if (btn) toggleCart(btn.dataset.id);
   });
-}
+})();
 
-// ─── CART LOGIC ───
-function addToCart(id) {
+// ─── CART ───
+function toggleCart(id) {
   const fruit = FRUITS.find(f => f.id === id);
   if (!fruit) return;
-
-  const existing = cart.find(item => item.id === id);
-  if (existing) {
-    existing.qty++;
+  const exist = cart.find(c => c.id === id);
+  if (exist) {
+    // Remove if already in cart
+    cart = cart.filter(c => c.id !== id);
   } else {
     cart.push({ ...fruit, qty: 1 });
   }
   updateCart();
-  openCart();
 }
 
-function removeFromCart(id) {
-  cart = cart.filter(item => item.id !== id);
+function removeItem(id) {
+  cart = cart.filter(c => c.id !== id);
   updateCart();
 }
 
 function updateCart() {
-  const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-  const totalPrice = cart.reduce((sum, item) => sum + item.qty * item.price, 0);
+  const count = cart.length;
+  const total = cart.reduce((s, i) => s + PRICE, 0);
 
-  cartCount.textContent = totalItems;
+  $('#cartCount').textContent = count;
 
-  if (cart.length === 0) {
-    cartItemsEl.innerHTML = '<p class="cart-empty">Your order is empty. Browse the collection and add items.</p>';
-    cartTotal.textContent = '$0';
+  // Update add-btn states
+  const inCart = cart.map(i => i.id);
+  $$('.add-btn').forEach(btn => {
+    btn.textContent = inCart.includes(btn.dataset.id) ? '✓ Added' : 'Add to cart';
+    btn.classList.toggle('in-cart', inCart.includes(btn.dataset.id));
+  });
+
+  // Cart body
+  const body = $('#cartBody');
+  if (!cart.length) {
+    body.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
+    $('#cartTotal').textContent = '$0';
     return;
   }
 
-  cartItemsEl.innerHTML = cart.map(item => {
-    const itemTotal = item.qty * item.price;
-    return `
-      <div class="cart-item">
-        <span class="item-emoji">${item.emoji}</span>
-        <div class="item-info">
-          <div class="item-name">${item.name}</div>
-          <div class="item-qty">Qty: ${item.qty}</div>
-        </div>
-        <div class="item-price">$${itemTotal}</div>
-        <button class="remove-btn" data-id="${item.id}" aria-label="Remove">✕</button>
+  body.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <img src="${IMG}${item.img}" alt="${item.name}" />
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-qty">1 dish</div>
       </div>
-    `;
-  }).join('');
+      <div class="cart-item-price">$${PRICE}</div>
+      <button class="cart-remove" data-id="${item.id}" aria-label="Remove">✕</button>
+    </div>
+  `).join('');
 
-  cartTotal.textContent = `$${totalPrice}`;
+  // Compute bundle savings
+  const qty = cart.length;
+  let displayTotal = qty * PRICE;
+  let saveText = '';
+  if (qty >= 6) { displayTotal = 138; saveText = ' (save $18)'; }
+  else if (qty >= 4) { displayTotal = 96; saveText = ' (save $8)'; }
+  else if (qty >= 2) { displayTotal = 50; saveText = ' (save $2)'; }
 
-  // Highlight items in cart on grid
-  const inCart = cart.map(i => i.id);
-  $$('.fruit-card').forEach(card => {
-    const id = card.dataset.id;
-    card.classList.toggle('in-cart', inCart.includes(id));
-  });
+  $('#cartTotal').innerHTML = `$${displayTotal}${saveText ? `<span style="font-size:.75rem;font-weight:400;color:var(--accent);display:block">${saveText}</span>` : ''}`;
 
-  // Remove handlers
-  cartItemsEl.querySelectorAll('.remove-btn').forEach(btn => {
-    btn.addEventListener('click', () => removeFromCart(btn.dataset.id));
+  body.querySelectorAll('.cart-remove').forEach(btn => {
+    btn.addEventListener('click', () => removeItem(btn.dataset.id));
   });
 }
 
-// ─── CART SIDEBAR ───
-function openCart() { cartSidebar.classList.add('open'); cartOverlay.classList.add('open'); }
-function closeCart() { cartSidebar.classList.remove('open'); cartOverlay.classList.remove('open'); }
+// ─── CART UI ───
+$('#cartTrigger').addEventListener('click', () => { $('#cart').classList.add('open'); $('#cartOverlay').classList.add('open'); });
+$('#cartClose').addEventListener('click', closeCart);
+$('#cartOverlay').addEventListener('click', closeCart);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCart(); });
+function closeCart() { $('#cart').classList.remove('open'); $('#cartOverlay').classList.remove('open'); }
 
-cartBtn.addEventListener('click', openCart);
-cartClose.addEventListener('click', closeCart);
-cartOverlay.addEventListener('click', closeCart);
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeCart();
-});
-
-// ─── CHECKOUT → FORM ───
-checkoutBtn.addEventListener('click', () => {
+// ─── CHECKOUT ───
+$('#checkoutBtn').addEventListener('click', () => {
   closeCart();
-  // Scroll to contact form and pre-fill order details
-  document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-  if (cart.length > 0) {
-    const orderSummary = cart.map(i => `${i.emoji} ${i.name} × ${i.qty}`).join(', ');
-    const total = cart.reduce((s, i) => s + i.qty * i.price, 0);
-    const msg = document.getElementById('formMessage');
-    msg.value = `I'd like to order: ${orderSummary}\nTotal: $${total}\n\n` + msg.value;
+  $('#contact').scrollIntoView({ behavior: 'smooth' });
+  if (cart.length) {
+    const qty = cart.length;
+    let total, save;
+    if (qty >= 6) { total = 138; save = 18; }
+    else if (qty >= 4) { total = 96; save = 8; }
+    else if (qty >= 2) { total = 50; save = 2; }
+    else { total = 26; save = 0; }
+
+    const list = cart.map(i => `${i.name}`).join(', ');
+    $('#formMessage').value =
+      `I'd like to order: ${list}\n` +
+      `Quantity: ${qty} dish${qty > 1 ? 'es' : ''}\n` +
+      `Total: $${total}${save ? ` (save $${save})` : ''}\n\n`;
   }
 });
 
-// ─── ORDER FORM ───
-orderForm.addEventListener('submit', e => {
+// ─── FORM ───
+$('#orderForm').addEventListener('submit', e => {
   e.preventDefault();
-  const name = document.getElementById('formName').value.trim();
-  const email = document.getElementById('formEmail').value.trim();
-  const fruit = document.getElementById('formFruit').value;
-  const qty = document.getElementById('formQuantity').value;
-  const message = document.getElementById('formMessage').value.trim();
+  const name = $('#formName').value.trim();
+  const email = $('#formEmail').value.trim();
+  const msg = $('#formMessage').value.trim();
+  if (!name || !email) return;
 
-  const subject = encodeURIComponent('Fruit Ceramics Order Inquiry');
+  const subject = encodeURIComponent('Fruit Ceramics order inquiry');
   const body = encodeURIComponent(
-    `Hi! I'd like to place an order:\n\n` +
-    `Name: ${name}\n` +
-    `Email: ${email}\n` +
-    `Fruit: ${fruit || 'N/A'}\n` +
-    `Quantity: ${qty || 'N/A'}\n\n` +
-    `Message:\n${message}\n\n` +
-    (cart.length > 0 ? `\n---\nCart Summary:\n${cart.map(i => `${i.emoji} ${i.name} × ${i.qty} = $${i.qty * i.price}`).join('\n')}\nTotal: $${cart.reduce((s,i) => s + i.qty * i.price, 0)}` : '')
+    `Hi! I'd like to place an order:\n\nName: ${name}\nEmail: ${email}\n\n${msg}\n\n` +
+    `---\nCart: ${cart.map(i => i.name).join(', ')}`
   );
-
-  // Open in default mail app
   window.location.href = `mailto:simplifaisoul@gmail.com?subject=${subject}&body=${body}`;
 
-  // Feedback
-  const btn = orderForm.querySelector('.btn-primary');
-  btn.textContent = '✅ Sent!';
-  setTimeout(() => { btn.textContent = 'Send Inquiry ✉️'; }, 3000);
-
-  // Reset form (keep message for reference)
-  document.getElementById('formName').value = '';
-  document.getElementById('formEmail').value = '';
+  const btn = $('#orderForm .btn');
+  const orig = btn.textContent;
+  btn.textContent = '✓ Sent';
+  btn.disabled = true;
+  setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 3000);
 });
 
-// ─── MOBILE HAMBURGER ───
-hamburger.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
+// ─── MOBILE MENU ───
+$('#menuBtn').addEventListener('click', () => {
+  $('#mobileNav').classList.toggle('open');
+  $('#menuBtn').classList.toggle('active');
+});
+$('#mobileNav').querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    $('#mobileNav').classList.remove('open');
+    $('#menuBtn').classList.remove('active');
+  });
 });
 
-// Close mobile nav on link click
-navLinks.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => navLinks.classList.remove('open'));
-});
+// ─── HERO IMAGE ROTATION ───
+(function rotateHero() {
+  const gallery = document.getElementById('heroGallery');
+  if (!gallery) return;
+  const imgs = gallery.querySelectorAll('img');
+  if (imgs.length < 2) return;
+  let idx = 0;
+  const srcs = Array.from(imgs).map(i => i.src);
+
+  // Reset: show first batch
+  function update(showIdx) {
+    const visible = [];
+    // First image is the large one, then 4 small grid images
+    visible.push(showIdx % srcs.length);
+    // Pick next 3 for the grid
+    for (let i = 1; i <= 4; i++) {
+      visible.push((showIdx + i) % srcs.length);
+    }
+    imgs.forEach((img, i) => {
+      if (i < visible.length) {
+        const newSrc = srcs[visible[i]];
+        if (img.src !== newSrc) {
+          img.style.opacity = '0';
+          setTimeout(() => {
+            img.src = newSrc;
+            img.style.opacity = '1';
+          }, 300);
+        }
+      }
+    });
+  }
+
+  // Start rotation every 5 seconds
+  setInterval(() => {
+    idx = (idx + 1) % srcs.length;
+    update(idx);
+  }, 5000);
+})();
 
 // ─── INIT ───
-renderFruits();
 updateCart();

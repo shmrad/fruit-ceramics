@@ -4,183 +4,143 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fruit Ceramics — Handmade Trinket Dishes</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍊</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍊</text></svg>">
 </head>
 <body>
 
-  <!-- ─── HEADER ─── -->
-  <header class="header">
-    <div class="container">
-      <nav>
-        <a href="#" class="logo">🍊 Fruit Ceramics</a>
-        <ul class="nav-links">
-          <li><a href="#shop">Shop</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-        <button class="cart-btn" id="cartBtn" aria-label="Cart">
-          <span class="cart-icon">🛒</span>
+  <!-- ─── NAV ─── -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">Fruit&thinsp;Ceramics</a>
+      <div class="nav-right">
+        <a href="#shop" class="nav-link">Shop</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <button class="cart-trigger" id="cartTrigger" aria-label="Open cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           <span class="cart-count" id="cartCount">0</span>
         </button>
-        <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
-      </nav>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="mobile-nav" id="mobileNav">
+        <a href="#shop" class="nav-link">Shop</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
     </div>
-  </header>
+  </nav>
 
   <!-- ─── HERO ─── -->
   <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-text">
-        <span class="hero-badge">Handmade with ❤️</span>
-        <h1>Your favorite fruits,<br />frozen in&nbsp;ceramic.</h1>
-        <p>Hand-sculpted trinket dishes for your jewelry, keys, stones&nbsp;—&nbsp;or anything you treasure.</p>
-        <a href="#shop" class="btn-primary">Shop Now ↓</a>
+    <div class="hero-content">
+      <span class="hero-badge">Handmade in small batches</span>
+      <h1>Ceramic trinket dishes,<br />shaped like fruit.</h1>
+      <p class="hero-p">Hand-sculpted and painted one at a time. For your jewelry, keys, stones&nbsp;—&nbsp;or someone special.</p>
+      <div class="hero-actions">
+        <a href="#shop" class="btn btn-primary">Explore the collection</a>
+        <a href="#pricing" class="btn btn-outline">See pricing</a>
       </div>
-      <div class="hero-visual">
-        <div class="hero-fruit-display">
-          <span class="big-fruit" style="animation-delay:0s">🍊</span>
-          <span class="big-fruit" style="animation-delay:0.3s">🍋</span>
-          <span class="big-fruit" style="animation-delay:0.6s">🥝</span>
-        </div>
-        <p class="hero-caption">Each piece is sculpted &amp; painted uniquely</p>
-      </div>
+    </div>
+    <div class="hero-gallery" id="heroGallery">
+      <!-- populated by JS -->
     </div>
   </section>
 
   <!-- ─── SHOP ─── -->
   <section class="shop" id="shop">
-    <div class="container">
-      <div class="section-label">Collection</div>
+    <div class="section-header">
+      <span class="section-label">Collection</span>
       <h2>Choose your fruit</h2>
-      <p class="section-sub">Every dish is water <em>resistant</em> — not waterproof. Hand-wash recommended.</p>
-
-      <div class="fruits-grid" id="fruitsGrid">
-        <!-- Filled by JS -->
-      </div>
-
-      <!-- ─── PRICING ─── -->
-      <div class="pricing-section">
-        <h3>Pricing</h3>
-        <div class="pricing-cards">
-          <div class="price-card">
-            <span class="price-qty">1</span>
-            <span class="price-label">Single dish</span>
-            <span class="price-value">$26</span>
-          </div>
-          <div class="price-card popular">
-            <span class="price-qty">2</span>
-            <span class="price-label">Bundle</span>
-            <span class="price-value">$50</span>
-            <span class="price-save">Save $2</span>
-          </div>
-          <div class="price-card">
-            <span class="price-qty">4</span>
-            <span class="price-label">Bundle</span>
-            <span class="price-value">$96</span>
-            <span class="price-save">Save $8</span>
-          </div>
-          <div class="price-card">
-            <span class="price-qty">6</span>
-            <span class="price-label">Bundle</span>
-            <span class="price-value">$138</span>
-            <span class="price-save">Save $18</span>
-          </div>
-        </div>
-      </div>
+      <p class="section-desc">Every dish is water <em>resistant</em> — not waterproof. Hand-wash recommended. Each piece is uniquely sculpted and painted, so colors and patterns may vary slightly.</p>
+    </div>
+    <div class="product-grid" id="productGrid">
+      <!-- populated by JS -->
     </div>
   </section>
 
-  <!-- ─── ABOUT ─── -->
-  <section class="about" id="about">
-    <div class="container">
-      <div class="section-label">The Making</div>
-      <h2>Why fruit ceramics?</h2>
-      <div class="about-grid">
-        <div class="about-card">
-          <span class="about-icon">🎨</span>
-          <h4>Hand-sculpted</h4>
-          <p>Each piece is individually sculpted and hand-painted — no two are exactly alike.</p>
-        </div>
-        <div class="about-card">
-          <span class="about-icon">🎁</span>
-          <h4>Perfect for gifting</h4>
-          <p>Unique, artisanal, and packaged with care. A gift that says you put thought into it.</p>
-        </div>
-        <div class="about-card">
-          <span class="about-icon">💧</span>
-          <h4>Water resistant</h4>
-          <p>Designed to hold small items. Resistant to light moisture but <strong>not</strong> waterproof — avoid soaking.</p>
-        </div>
-        <div class="about-card">
-          <span class="about-icon">🌈</span>
-          <h4>Custom orders</h4>
-          <p>Want a different fruit or special specification? Just ask — we'd love to create something just for you.</p>
-        </div>
+  <!-- ─── PRICING ─── -->
+  <section class="pricing" id="pricing">
+    <div class="section-header">
+      <span class="section-label">Pricing</span>
+      <h2>Single or bundle</h2>
+      <p class="section-desc">The more you bundle, the more you save. Mix and match any fruits.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-qty">1</div>
+        <div class="price-unit">dish</div>
+        <div class="price-amount">$26</div>
+      </div>
+      <div class="price-card featured">
+        <div class="price-tag">Most popular</div>
+        <div class="price-qty">2</div>
+        <div class="price-unit">dishes</div>
+        <div class="price-amount">$50</div>
+        <div class="price-save">Save $2</div>
+      </div>
+      <div class="price-card">
+        <div class="price-qty">4</div>
+        <div class="price-unit">dishes</div>
+        <div class="price-amount">$96</div>
+        <div class="price-save">Save $8</div>
+      </div>
+      <div class="price-card">
+        <div class="price-qty">6</div>
+        <div class="price-unit">dishes</div>
+        <div class="price-amount">$138</div>
+        <div class="price-save">Save $18</div>
       </div>
     </div>
   </section>
 
   <!-- ─── CONTACT ─── -->
   <section class="contact" id="contact">
-    <div class="container">
-      <div class="section-label">Get in touch</div>
+    <div class="section-header">
+      <span class="section-label">Get in touch</span>
       <h2>Place an order or ask a question</h2>
-      <p class="section-sub">Tell me which fruits you'd like, the quantity, and any special requests.</p>
-
-      <form class="contact-form" id="orderForm">
-        <div class="form-row">
-          <input type="text" id="formName" placeholder="Your name" required />
-          <input type="email" id="formEmail" placeholder="Your email" required />
-        </div>
-        <div class="form-row">
-          <select id="formFruit">
-            <option value="">Select a fruit…</option>
-            <option value="Tangerine">🍊 Tangerine</option>
-            <option value="Grapefruit">🍉 Grapefruit</option>
-            <option value="Lemon">🍋 Lemon</option>
-            <option value="Orange">🍊 Orange</option>
-            <option value="Lime">🍋‍🟩 Lime</option>
-            <option value="Kiwi">🥝 Kiwi</option>
-            <option value="Other">🌸 Other / custom request</option>
-          </select>
-          <select id="formQuantity">
-            <option value="">Quantity…</option>
-            <option value="1">1 dish ($26)</option>
-            <option value="2">2 dishes - Bundle ($50)</option>
-            <option value="4">4 dishes - Bundle ($96)</option>
-            <option value="6">6 dishes - Bundle ($138)</option>
-          </select>
-        </div>
-        <textarea id="formMessage" rows="4" placeholder="Your message, custom fruit requests, or anything else…"></textarea>
-        <button type="submit" class="btn-primary">Send Inquiry ✉️</button>
-      </form>
+      <p class="section-desc">Want a different fruit or custom specification? Just let me know.</p>
     </div>
+    <form class="contact-form" id="orderForm">
+      <div class="form-row">
+        <input type="text" id="formName" placeholder="Your name" required />
+        <input type="email" id="formEmail" placeholder="Your email" required />
+      </div>
+      <textarea id="formMessage" rows="4" placeholder="What would you like to order? Mention fruits, quantity, and any custom requests…"></textarea>
+      <button type="submit" class="btn btn-primary btn-lg">Send inquiry</button>
+    </form>
   </section>
 
   <!-- ─── FOOTER ─── -->
   <footer class="footer">
-    <div class="container">
-      <p>🍊 Fruit Ceramics — handmade with love</p>
-      <p class="footer-note">Each piece is unique. Colors and patterns may vary slightly from photos.</p>
+    <div class="footer-inner">
+      <span class="footer-brand">🍊 Fruit Ceramics</span>
+      <p class="footer-note">Each piece is unique. Handmade with care.</p>
     </div>
   </footer>
 
   <!-- ─── CART SIDEBAR ─── -->
-  <aside class="cart-sidebar" id="cartSidebar">
+  <aside class="cart" id="cart">
     <div class="cart-header">
-      <h3>Your Order</h3>
-      <button id="cartClose" aria-label="Close cart">✕</button>
+      <h3>Your order</h3>
+      <button class="cart-close" id="cartClose" aria-label="Close cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
-    <div class="cart-items" id="cartItems">
-      <p class="cart-empty">Your order is empty. Browse the collection and add items.</p>
+    <div class="cart-body" id="cartBody">
+      <p class="cart-empty">Your cart is empty.</p>
     </div>
     <div class="cart-footer">
       <div class="cart-total">
         <span>Total</span>
-        <span id="cartTotal">$0</span>
+        <strong id="cartTotal">$0</strong>
       </div>
-      <button class="btn-primary" id="checkoutBtn">Proceed to Inquiry</button>
+      <button class="btn btn-primary btn-lg" id="checkoutBtn">Send order inquiry</button>
     </div>
   </aside>
   <div class="cart-overlay" id="cartOverlay"></div>
