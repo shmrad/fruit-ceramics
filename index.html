@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fruit Ceramics — Handmade Trinket Dishes</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍊</text></svg>">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ─── HEADER ─── -->
+  <header class="header">
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">🍊 Fruit Ceramics</a>
+        <ul class="nav-links">
+          <li><a href="#shop">Shop</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="cart-btn" id="cartBtn" aria-label="Cart">
+          <span class="cart-icon">🛒</span>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <span class="hero-badge">Handmade with ❤️</span>
+        <h1>Your favorite fruits,<br />frozen in&nbsp;ceramic.</h1>
+        <p>Hand-sculpted trinket dishes for your jewelry, keys, stones&nbsp;—&nbsp;or anything you treasure.</p>
+        <a href="#shop" class="btn-primary">Shop Now ↓</a>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-fruit-display">
+          <span class="big-fruit" style="animation-delay:0s">🍊</span>
+          <span class="big-fruit" style="animation-delay:0.3s">🍋</span>
+          <span class="big-fruit" style="animation-delay:0.6s">🥝</span>
+        </div>
+        <p class="hero-caption">Each piece is sculpted &amp; painted uniquely</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SHOP ─── -->
+  <section class="shop" id="shop">
+    <div class="container">
+      <div class="section-label">Collection</div>
+      <h2>Choose your fruit</h2>
+      <p class="section-sub">Every dish is water <em>resistant</em> — not waterproof. Hand-wash recommended.</p>
+
+      <div class="fruits-grid" id="fruitsGrid">
+        <!-- Filled by JS -->
+      </div>
+
+      <!-- ─── PRICING ─── -->
+      <div class="pricing-section">
+        <h3>Pricing</h3>
+        <div class="pricing-cards">
+          <div class="price-card">
+            <span class="price-qty">1</span>
+            <span class="price-label">Single dish</span>
+            <span class="price-value">$26</span>
+          </div>
+          <div class="price-card popular">
+            <span class="price-qty">2</span>
+            <span class="price-label">Bundle</span>
+            <span class="price-value">$50</span>
+            <span class="price-save">Save $2</span>
+          </div>
+          <div class="price-card">
+            <span class="price-qty">4</span>
+            <span class="price-label">Bundle</span>
+            <span class="price-value">$96</span>
+            <span class="price-save">Save $8</span>
+          </div>
+          <div class="price-card">
+            <span class="price-qty">6</span>
+            <span class="price-label">Bundle</span>
+            <span class="price-value">$138</span>
+            <span class="price-save">Save $18</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ABOUT ─── -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-label">The Making</div>
+      <h2>Why fruit ceramics?</h2>
+      <div class="about-grid">
+        <div class="about-card">
+          <span class="about-icon">🎨</span>
+          <h4>Hand-sculpted</h4>
+          <p>Each piece is individually sculpted and hand-painted — no two are exactly alike.</p>
+        </div>
+        <div class="about-card">
+          <span class="about-icon">🎁</span>
+          <h4>Perfect for gifting</h4>
+          <p>Unique, artisanal, and packaged with care. A gift that says you put thought into it.</p>
+        </div>
+        <div class="about-card">
+          <span class="about-icon">💧</span>
+          <h4>Water resistant</h4>
+          <p>Designed to hold small items. Resistant to light moisture but <strong>not</strong> waterproof — avoid soaking.</p>
+        </div>
+        <div class="about-card">
+          <span class="about-icon">🌈</span>
+          <h4>Custom orders</h4>
+          <p>Want a different fruit or special specification? Just ask — we'd love to create something just for you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTACT ─── -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-label">Get in touch</div>
+      <h2>Place an order or ask a question</h2>
+      <p class="section-sub">Tell me which fruits you'd like, the quantity, and any special requests.</p>
+
+      <form class="contact-form" id="orderForm">
+        <div class="form-row">
+          <input type="text" id="formName" placeholder="Your name" required />
+          <input type="email" id="formEmail" placeholder="Your email" required />
+        </div>
+        <div class="form-row">
+          <select id="formFruit">
+            <option value="">Select a fruit…</option>
+            <option value="Tangerine">🍊 Tangerine</option>
+            <option value="Grapefruit">🍉 Grapefruit</option>
+            <option value="Lemon">🍋 Lemon</option>
+            <option value="Orange">🍊 Orange</option>
+            <option value="Lime">🍋‍🟩 Lime</option>
+            <option value="Kiwi">🥝 Kiwi</option>
+            <option value="Other">🌸 Other / custom request</option>
+          </select>
+          <select id="formQuantity">
+            <option value="">Quantity…</option>
+            <option value="1">1 dish ($26)</option>
+            <option value="2">2 dishes - Bundle ($50)</option>
+            <option value="4">4 dishes - Bundle ($96)</option>
+            <option value="6">6 dishes - Bundle ($138)</option>
+          </select>
+        </div>
+        <textarea id="formMessage" rows="4" placeholder="Your message, custom fruit requests, or anything else…"></textarea>
+        <button type="submit" class="btn-primary">Send Inquiry ✉️</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer">
+    <div class="container">
+      <p>🍊 Fruit Ceramics — handmade with love</p>
+      <p class="footer-note">Each piece is unique. Colors and patterns may vary slightly from photos.</p>
+    </div>
+  </footer>
+
+  <!-- ─── CART SIDEBAR ─── -->
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>Your Order</h3>
+      <button id="cartClose" aria-label="Close cart">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <p class="cart-empty">Your order is empty. Browse the collection and add items.</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">$0</span>
+      </div>
+      <button class="btn-primary" id="checkoutBtn">Proceed to Inquiry</button>
+    </div>
+  </aside>
+  <div class="cart-overlay" id="cartOverlay"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
