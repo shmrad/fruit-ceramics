@@ -1,34 +1,39 @@
 # 🍊 Fruit Ceramics — Handmade Trinket Dishes
 
-Hand-sculpted ceramic trinket dishes shaped like your favorite fruits. Perfect for jewelry, keys, stones, or small treasures.
+Hand-sculpted ceramic trinket dishes shaped like fruit.  
+Each piece is uniquely sculpted and painted — water resistant, not waterproof.
+
+👉 **[View the live site](https://shmrad.github.io/fruit-ceramics/)**
+
+---
 
 ## Products
 
-| Fruit | Price |
-|-------|-------|
-| 🍊 Tangerine | $26 |
-| 🍉 Grapefruit | $26 |
-| 🍋 Lemon | $26 |
-| 🍊 Orange | $26 |
-| 🍋‍🟩 Lime | $26 |
-| 🥝 Kiwi | $26 |
+| Fruit | Single | Bundle |
+|-------|--------|--------|
+| 🍊 Tangerine | $26 | 2/$50 · 4/$96 · 6/$138 |
+| 🍉 Grapefruit | $26 | 2/$50 · 4/$96 · 6/$138 |
+| 🍋 Lemon | $26 | 2/$50 · 4/$96 · 6/$138 |
+| 🍊 Orange | $26 | 2/$50 · 4/$96 · 6/$138 |
+| 🍋‍🟩 Lime | $26 | 2/$50 · 4/$96 · 6/$138 |
+| 🥝 Kiwi | $26 | 2/$50 · 4/$96 · 6/$138 |
 
-## Bundles
-
-| Qty | Price | You Save |
-|-----|-------|----------|
-| 1 | $26 | — |
-| 2 | $50 | $2 |
-| 4 | $96 | $8 |
-| 6 | $138 | $18 |
+Mix and match any fruits in a bundle.
 
 ## Features
 
-- Each piece is hand-sculpted and painted uniquely
-- Water **resistant** (not waterproof)
-- Custom orders available — just ask!
-- Great for gifting
+- Clean, minimal single-page storefront
+- Product photo gallery
+- Cart sidebar with bundle pricing
+- Mobile responsive
+- Contact/order form via email
+- GitHub Pages hosted
 
-## Tech
+## Custom orders
 
-Pure HTML + CSS + JS — no framework, no build step. Open `index.html` in any browser.
+Want a different fruit or specification?  
+Email: simplifaisoul@gmail.com
+
+---
+
+Built with HTML, CSS, JavaScript. No frameworks.

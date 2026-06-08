@@ -4,15 +4,15 @@
 
 // ─── DATA ───
 const FRUITS = [
-  { id: 'tangerine', name: 'Tangerine', img: 'img_ed49f0fd79a9.jpg' },
-  { id: 'grapefruit', name: 'Grapefruit', img: 'img_2d438f398697.jpg' },
-  { id: 'lemon', name: 'Lemon', img: 'img_ae21c01b0db4.jpg' },
-  { id: 'orange', name: 'Orange', img: 'img_92c0344e546a.jpg' },
-  { id: 'lime', name: 'Lime', img: 'img_1fe4ec6224d1.jpg' },
-  { id: 'kiwi', name: 'Kiwi', img: 'img_d7be2aeb274d.jpg' },
+  { id: 'tangerine', name: 'Tangerine', img: 'tangerine.jpg' },
+  { id: 'grapefruit', name: 'Grapefruit', img: 'grapefruit.jpg' },
+  { id: 'lemon', name: 'Lemon', img: 'lemon.jpg' },
+  { id: 'orange', name: 'Orange', img: 'orange.jpg' },
+  { id: 'lime', name: 'Lime', img: 'lime.jpg' },
+  { id: 'kiwi', name: 'Kiwi', img: 'kiwi.jpg' },
 ];
 
-const HERO_IMAGES = ['img_ed49f0fd79a9.jpg', 'img_92c0344e546a.jpg', 'img_ae21c01b0db4.jpg', 'img_d7be2aeb274d.jpg', 'img_b09aa1c8a4e6.jpg'];
+const HERO_IMAGES = ['tangerine.jpg', 'orange.jpg', 'lemon.jpg', 'kiwi.jpg', 'hero-extra-1.jpg'];
 
 const PRICE = 26;
 const BUNDLE = { 1: 0, 2: 2, 4: 8, 6: 18 };
@@ -180,45 +180,6 @@ $('#mobileNav').querySelectorAll('a').forEach(a => {
     $('#menuBtn').classList.remove('active');
   });
 });
-
-// ─── HERO IMAGE ROTATION ───
-(function rotateHero() {
-  const gallery = document.getElementById('heroGallery');
-  if (!gallery) return;
-  const imgs = gallery.querySelectorAll('img');
-  if (imgs.length < 2) return;
-  let idx = 0;
-  const srcs = Array.from(imgs).map(i => i.src);
-
-  // Reset: show first batch
-  function update(showIdx) {
-    const visible = [];
-    // First image is the large one, then 4 small grid images
-    visible.push(showIdx % srcs.length);
-    // Pick next 3 for the grid
-    for (let i = 1; i <= 4; i++) {
-      visible.push((showIdx + i) % srcs.length);
-    }
-    imgs.forEach((img, i) => {
-      if (i < visible.length) {
-        const newSrc = srcs[visible[i]];
-        if (img.src !== newSrc) {
-          img.style.opacity = '0';
-          setTimeout(() => {
-            img.src = newSrc;
-            img.style.opacity = '1';
-          }, 300);
-        }
-      }
-    });
-  }
-
-  // Start rotation every 5 seconds
-  setInterval(() => {
-    idx = (idx + 1) % srcs.length;
-    update(idx);
-  }, 5000);
-})();
 
 // ─── INIT ───
 updateCart();
