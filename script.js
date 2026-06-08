@@ -214,14 +214,19 @@ function getCartItems() {
 
 function getCartTotal() {
   const qty = getCartItems().length;
-  if (qty === 0) return { qty: 0, total: 0, save: 0 };
-
-  // Find best bundle match (highest tier <= qty)
-  let best = BUNDLES[0];
-  for (const b of BUNDLES) {
-    if (b.qty <= qty) best = b;
+  if (qty === 0) return { qty: 0, total: 0, save: 0, isBundle: false };
+  if (qty === 1) return { qty: 1, total: 26, save: 0, isBundle: false };
+  
+  // Check for exact bundle match
+  const exactMatch = BUNDLES.find(b => b.qty === qty);
+  if (exactMatch) {
+    return { qty, total: exactMatch.total, save: exactMatch.save, isBundle: true };
   }
-  return { qty, total: best.total, save: best.save, bundleQty: best.qty };
+  
+  // In-between quantity: show regular price + next tier hint
+  const regularPrice = qty * PRICE;
+  const nextTier = BUNDLES.find(b => b.qty > qty);
+  return { qty, total: regularPrice, save: 0, isBundle: false, nextTier };
 }
 
 function removeItem(id) {
@@ -287,23 +292,19 @@ function updateUI() {
 
   // Cart total with savings breakdown
   let totalHtml = `$${info.total}`;
-  if (info.save > 0 && info.qty >= info.bundleQty) {
-    const regularPrice = info.qty * PRICE;
+  if (info.isBundle && info.save > 0) {
     totalHtml += `
       <div class="cart-save">
         <span class="cart-save-badge">Bundle savings</span>
         <span>${info.qty} for $${info.total}</span>
         <span class="cart-save-amount">Save $${info.save}</span>
       </div>`;
-  } else if (info.qty >= 2) {
-    const nextTier = BUNDLES.find(b => b.qty > info.qty);
-    if (nextTier) {
-      const more = nextTier.qty - info.qty;
-      totalHtml += `
-        <div class="cart-save">
-          <span class="cart-save-hint">Add ${more} more to save $${nextTier.save} with a bundle</span>
-        </div>`;
-    }
+  } else if (info.nextTier) {
+    const need = info.nextTier.qty - info.qty;
+    totalHtml += `
+      <div class="cart-save">
+        <span class="cart-save-hint">Add ${need} more for $${info.nextTier.total} (save $${info.nextTier.save})</span>
+      </div>`;
   }
 
   $('#cartTotal').innerHTML = totalHtml;
@@ -382,7 +383,7 @@ $('#checkoutBtn').addEventListener('click', () => {
 
   const list = items.map(i => `- ${i.name}`).join('\n');
   const msg = `I'd like to order:\n${list}\n\nQuantity: ${info.qty} dish${info.qty > 1 ? 'es' : ''}\n`;
-  const msgWithTotal = info.save > 0
+  const msgWithTotal = info.isBundle
     ? `${msg}Bundle: ${info.qty} for $${info.total} (save $${info.save})`
     : `${msg}Total: $${info.total}`;
 
